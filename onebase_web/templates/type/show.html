@@ -1,0 +1,21 @@
+{% extends "base/point.html" %}
+{% block content %}
+<table>
+    <tr>
+        <th>Name</th>
+        <td>{{ type.name }}</td>
+    </tr>
+    <tr>
+        <th>Representation URL:</th>
+        <td>{{ type.repr }}</td>
+    </tr>
+    <tr>
+        <th>Validation URL:</th>
+        <td>{{ type.validator }}</td>
+    </tr>
+    <tr>
+        <th>Is Primitive?</th>
+        <td>{{ type.is_primitive }}</td>
+    </tr>
+</table>
+{% endblock content %}

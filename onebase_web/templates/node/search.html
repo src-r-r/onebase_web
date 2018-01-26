@@ -1,0 +1,12 @@
+{% extends "base/point.html" %}
+{% block content %}
+{% if node %}
+{% else %}
+<div class="message error">
+    <p>Node not found.</p>
+    <p><a href="/node/create?path={{ request.args.path }}">
+        Create a node at </strong>{{ request.args.path }}</strong>
+    </a></p>
+</div>
+{% endif %}
+{% endblock content %}

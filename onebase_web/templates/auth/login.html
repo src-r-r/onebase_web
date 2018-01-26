@@ -1,0 +1,20 @@
+{# vim: set syn=jinja2 #}
+{% extends "base/point.html" %}
+{% block content %}
+{% if errors %}
+{% for e in errors %}
+<ul class="errors">
+    <li>{{ e }}</li>
+</ul>
+{% endfor %}
+{% endif %}
+<form name="login" method="POST">
+{% for field in form %}
+    <label for="{{ field.name }}">
+        {{ field.label }}:
+    </label>
+    {{ field }}
+{% endfor %}
+<input type="submit" value="Log In" />
+</form>
+{% endblock content %}

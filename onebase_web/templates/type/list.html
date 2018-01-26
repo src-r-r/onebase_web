@@ -1,0 +1,15 @@
+{% extends "base/point.html" %}
+{% block content %}
+<a href="/type/create">Create Type</a>
+{% if types|length == 0 %}
+No types. So sad.
+{% endif %}
+<ul id="type-list">
+{% for type in types %}
+    <li><a href="/type/{{ type.id }}">{{ type.name }}</a>
+        <a href="/type/{{ type.id}}/update">[Edit]</a>
+        <a href="/type/{{ type.id}}/delete">[Delete]</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock content %}

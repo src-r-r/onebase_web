@@ -1,0 +1,14 @@
+{% extends "base/point.html" %}
+{% block content %}
+<form name="create-type" method="POST">
+    {% for field in form %}
+        <div>
+        <label for="{{ field.name }}">
+            {{ field.label }}:
+        </label>
+        {{ field }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Create" />
+</form>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "base/point.html" %}
+{% block content %}
+<div id="path-breadcrumb">
+    {% for i in pathparts %}
+        <span>{{ i }}</span>
+    {% endfor %}
+</div>
+<form name="create-node" method='GET'>
+    {% for field in form %}
+        {% if field.hidden %}
+        {% else %}
+            <div>
+            <label for="{{ field.name }}">
+                {{ field.label }}:
+            </label>
+            {{ field }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <a href='{{ add_key_url }}'>+</a>
+</form>
+{% endblock content %}

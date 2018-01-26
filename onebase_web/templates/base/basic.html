@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <title>
+            1Base | The Big One {% if title %} - {{ title }}{% endif %}
+        </title>
+    </head>
+    <body>
+        <div id="container">
+            {% if title %}<h1>{{ title }}</h1>{% endif %}
+            {% include "include/navbar.html" %}
+            {% block content %}{% endblock content %}
+        </div>
+        <div id="path-search">
+            <h2>Search Nodes By Path</h2>
+            <form name="search_path" method='GET' action='/node/search'>
+                <input type="text" name="path">
+                <input type="submit" value="Search">
+            </form>
+            <p>Or <a href="/node/browse">Browse Paths</p>
+        </div>
+    </body>
+</html>

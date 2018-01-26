@@ -1,0 +1,18 @@
+{% extends "base/point.html" %}
+{% block content %}
+{% if confirm %}
+{% if confirm == "1" %}
+    <div class="message info">
+        <p>You have deleted <strong>{{ type.name }}</strong> type</p>
+    </div>
+{% else %}
+{% endif %}
+{% else %}
+<div class="message question">
+    <p>Are you sure you want to delete the following type?</p>
+    <p><strong>{{ type.name }}</strong></p>
+    <a href="?confirm=1">Yes</a>
+    <a href="?confirm=0">No</a>
+</div>
+{% endif %}
+{% endblock content %}

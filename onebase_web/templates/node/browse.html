@@ -1,0 +1,13 @@
+{% extends "base/point.html" %}
+{% block content %}
+{% if path %}
+    {% if node %}
+    {% else %}
+    {% endif %}
+{% else %}
+    <div class="message error">
+        <p>No Paths Created</p>
+        <p><a href="/node/create">Create Node</a></p>
+    </div>
+{% endif %}
+{% endblock content %}

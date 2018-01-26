@@ -1,0 +1,12 @@
+<ul id="navbar">
+    <li><a href="/">Home</a></li>
+    {% if session.user %}
+    <li><a href="/logout">Log Out</a></li>
+    <li><a href="/account">{{ session.user.email }}'s account</a></li>
+    {% else %}
+    <li><a href="/login">Log In</a></li>
+    <li><a href="/register">Register</a></li>
+    {% endif %}
+    <li><a href="/node/browse">Browse Nodes</a></li>
+    <li><a href="/type">List Types</a></li>
+</uL>

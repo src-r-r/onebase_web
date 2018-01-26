@@ -1,0 +1,15 @@
+{% extends "base/point.html" %}
+{% block content %}
+{% if errors %}
+<div class="message error">
+    Invalid verification key. Try sending again.
+    <form name="verify" method='POST'>
+    </form>
+</div>
+{% else %}
+<div class="message success">
+    Your account {{email}} has been verified. You may now
+    <a href="/login">Log In</a>
+</div>
+{% endif %}
+{% endblock content %}
