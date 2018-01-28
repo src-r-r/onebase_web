@@ -5,13 +5,17 @@
         <span>{{ i }}</span> |
     {% endfor %}
 </div>
-{% for e in form.errors %}
-    <p>{{ e }}</p>
-{% endfor %}
+{% if form.errors %}
+    <ul class="errors">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
 <form name="create-node" method='POST'>
     {% include "include/basic_form.html" %}
-    <a href='{{ add_key_url }}'>[Add Field]</a>
-
     <input type="submit" value="Create" />
 </form>
 {% endblock content %}

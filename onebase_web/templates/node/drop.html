@@ -1,0 +1,19 @@
+{% extends "base/point.html" %}
+{% block content %}
+<div class="message question">
+    <p>Are you sure you want to delete the following rows?</p>
+</div>
+<table>
+{% for row in rows %}
+<tr>
+{% for slot in row %}
+<td>{{ slot|safe }}</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</table>
+<form name="delete_rows" method="POST">
+    <input type="submit" name="YES", value="YES">
+    <input type="submit" name="NO", value="NO">
+</form>
+{% endblock content %}

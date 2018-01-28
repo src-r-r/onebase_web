@@ -1,13 +1,11 @@
 {% extends "base/point.html" %}
 {% block content %}
-{% if path %}
-    {% if node %}
-    {% else %}
-    {% endif %}
+{% if current %}
+    <h2>{{ current.string2 }}</h2>
 {% else %}
-    <div class="message error">
-        <p>No Paths Created</p>
-        <p><a href="/node/create">Create Node</a></p>
-    </div>
+    <h2>/</h2>
 {% endif %}
+{% for c in children %}
+<a href="{{ request.path }}?path={{ c.string2 }}">{{ c.string2 }}</a>
+{% endfor %}
 {% endblock content %}

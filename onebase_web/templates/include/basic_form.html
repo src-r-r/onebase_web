@@ -1,0 +1,12 @@
+{% for field in form %}
+    {% if field.type == 'HiddenField' %}
+    <div style="display: none;">
+    {% else %}
+    <div>
+    {% endif %}
+        <label for="{{ field.name }}">
+            {{ field.label }}:
+        </label>
+        {{ field }}
+    </div>
+{% endfor %}

@@ -42,6 +42,7 @@ from onebase_common.util import (
 from onebase_web.forms import (
     LoginForm,
     RegisterForm,
+    ChangeApiKeyForm,
     # CreateNodeForm,
 )
 from onebase_api.models.auth import (
@@ -159,6 +160,33 @@ def get_user(key='user', user_id_field='id'):
             if user_id_field in session[key]:
                 return load_user(session[key][user_id_field])
     return None
+
+
+@auth_views.route('/account/api', methods=['GET', 'POST', ])
+@login_required
+def account_api():
+    user = get_user()
+
+    if request.method == 'POST':
+        logger.debug("Request form: {}".format(request.form.get('clear')))
+        logger.debug("Request form: {}".format(request.form.get('change')))
+        if 'change' in request.form:
+            user.generate_api_key()
+        elif 'clear' in request.form:
+            user.api_key = None
+        user.save()
+
+    form = ChangeApiKeyForm(api_key=getattr(user, 'api_key'))
+    return render_template('details/api.html', form=form,
+                           title='Change API Key')
+
+
+@auth_views.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    """ Get the current user's account. """
+    user = get_user()
+    return render_template('account.html', title='Account')
 
 
 @auth_views.route('/login', methods=['GET', 'POST'])

@@ -1,6 +1,40 @@
 {% extends "base/point.html" %}
 {% block content %}
 {% if node %}
+    <div class="node-info">
+        <span><h2>{{ node.title }}</h2></span>
+        <span>
+            {{ start }} - {{ end }} of {{ node.row_count }}
+        </span>
+    </div>
+    <form name="node_table" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th><!-- checkbox for this column--></th>
+                    <th><!-- edit button--></th>
+                    {% for k in node_keys %}
+                    <th>{{ k.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for rownum, row in query_set|dictsort %}
+                <tr>
+                    <td><input type="checkbox" name="select_row" value="{{ rownum }}" /></td>
+                    <td><a href="/node/slot/update/{{ rownum }}?path={{ request.args.path }}">[edit]</a></td>
+                    {% for col_num, value in row|dictsort %}
+                        <td>{{ value.1|safe }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <ul class="node-actions">
+            <li><a href="/node/slot/add?path={{request.args.path}}">[ADD SLOT ROW]</a></li>
+            <li><input type="submit" name="DELETE" value="DELETE"></li>
+        </ul>
+    </form>
 {% else %}
 <div class="message error">
     <p>Node not found.</p>
@@ -8,5 +42,13 @@
         Create a node at </strong>{{ request.args.path }}</strong>
     </a></p>
 </div>
+{% endif %}
+{% if path.paths|length > 0 %}
+<h3>Sub-Paths</h3>
+<ul>
+{% for c in path.paths %}
+    <li><a href="{{ request.path }}?path={{ c.string2 }}">{{ c.string2 }}</a></li>
+{% endfor %}
+</ul>
 {% endif %}
 {% endblock content %}

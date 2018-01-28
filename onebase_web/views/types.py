@@ -88,19 +88,28 @@ def show_type(type_id):
     return render_template('show.html', type=Type.objects(id=type_id).first())
 
 
-@type_views.route('/<type_id>/modify', methods=['GET', 'POST', ])
+@type_views.route('/<type_id>/update', methods=['GET', 'POST', ])
 @login_required
 @permissions_required('update_type')
 def update_type(type_id):
     """ Update a type. """
     type = Type.objects(id=type_id).first()
-    form = CreateTypeForm(**type.to_json())
+    # from json import loads
+    data = type.to_json()
+    if 'id' in data:
+        del data['id']
+    form = CreateTypeForm(**data)
     if request.method == 'POST':
+        form = CreateTypeForm(request.form)
         if form.validate():
-            type.update(**form.data)
-            if type.save(get_user()):
-                return redirect(url_for='type.show_type')
-    return render_template('type/create.html', form=form)
+            logger.debug('saving {} with {}'.format(type, form.data))
+            for (k, v) in form.data.items():
+                if hasattr(type, k):
+                    setattr(type, k, v)
+            if type.save():
+                return redirect(url_for('type.show_type',
+                                        type_id=type.id))
+    return render_template('type/modify.html', form=form)
 
 
 @type_views.route('/<type_id>/delete', methods=['GET', ])

@@ -1,0 +1,21 @@
+{% extends "base/point.html" %}
+{% block content %}
+<div id="path-breadcrumb">
+    {% for i in pathparts %}
+        <span>{{ i }}</span> |
+    {% endfor %}
+</div>
+{% if form.errors %}
+    <ul class="errors">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+<form name="update-node" method='POST'>
+    {% include "include/basic_form.html" %}
+    <input type="submit" value="Update" />
+</form>
+{% endblock content %}

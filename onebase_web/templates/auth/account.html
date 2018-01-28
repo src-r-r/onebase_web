@@ -1,0 +1,16 @@
+{% extends "base/point.html" %}
+{% block content %}
+<h2>Basic Information</h2>
+<ul>
+    <li> Email: {{ session.user.email }}<a href="/account/email">[Change]</a></li>
+    <li> Password <a href="/account/password">[Change]</a></li>
+</ul>
+<h2>Developer Information</h2>
+<ul>
+    {% if not session.user.api_key %}
+        <li>No API Key <a href="/account/api">[Add]</a></li>
+    {% else %}
+        <li>API Key: {{ session.user.api_key }} <a href="/account/api">[Change]</a></li>
+    {% endif %}
+</ul>
+{% endblock content %}
